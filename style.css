@@ -883,3 +883,13 @@ div[id^="g-"] {
 .ai2html .g-artboard {
   overflow: visible !important;
 }
+
+/* Shrink the massive desktop text to fit phone screens */
+.names-text {
+  font-size: 26px;
+  padding: 0 15px;
+}
+
+.title-main {
+  font-size: 45px; /* Ensures the main title also fits safely */
+}
