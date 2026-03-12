@@ -1,19 +1,14 @@
 /* --- GLOBAL STYLES --- */
 /* --- GLOBAL STYLES --- */
-html {
-  margin: 0;
-  padding: 0;
-  /* Let the html tag behave naturally without overflow rules */
-}
-
+/* --- GLOBAL STYLES --- */
+html,
 body {
   margin: 0;
   padding: 0;
+  max-width: 100%; /* Strictly enforces the boundary */
+  overflow-x: hidden; /* Hides anything pushing past the edge */
   background-color: #f8f9fa;
   font-family: "Roboto", sans-serif;
-  /* Apply the hidden overflow ONLY to the body to prevent the scroll trap */
-  overflow-x: hidden;
-  height: auto;
 }
 
 /* ========================================= */
@@ -213,6 +208,7 @@ body {
   max-width: 1400px;
   padding: 0 40px;
   margin-top: 50vh;
+  overflow-wrap: break-word; /* Allows long names to break if they exceed screen width */
 }
 
 .bridge-section {
