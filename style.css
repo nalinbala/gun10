@@ -257,22 +257,34 @@ main.d3-scrollytelling {
   z-index: 10;
 }
 
-/* --- NEW: D3 LEGEND STYLING --- */
-#d3-legend {
+/* ========================================= */
+/* D3 LEGEND STYLING & MASTER SWITCH         */
+/* ========================================= */
+
+/* 1. Both legends start completely hidden by default */
+#d3-legend,
+#d3-age-legend {
   position: fixed;
-  top: 5vh;
+  top: 85px;
   right: 5vw;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#d3-legend {
   display: flex;
   gap: 20px;
-  z-index: 20;
-  opacity: 0; /* Hidden until the user scrolls to the D3 section */
-  visibility: hidden;
-  transition: opacity 0.5s ease;
 }
-#d3-legend.visible {
-  opacity: 1;
-  visibility: visible;
+
+#d3-age-legend {
+  width: 250px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 4px;
 }
+
 .legend-item {
   display: flex;
   align-items: center;
@@ -293,6 +305,48 @@ main.d3-scrollytelling {
   background-color: #3e5c76;
 }
 
+.age-guide-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #4a4a4a;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.age-gradient-bar {
+  height: 15px;
+  border-radius: 4px;
+  background: linear-gradient(
+    to right,
+    #1e6b3c 0%,
+    #4cb050 9%,
+    #ffeb3b 18%,
+    #ff9800 36%,
+    #f44336 58%,
+    #b71c1c 80%,
+    #880e4f 100%
+  );
+}
+
+.age-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  color: #1a1a1a;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* 2. MASTER VISIBILITY SWITCH: 
+   Legends ONLY appear when GSAP adds "show-legends" to the body, 
+   AND the script has marked one as "active-legend".
+*/
+body.show-legends #d3-legend.active-legend,
+body.show-legends #d3-age-legend.active-legend {
+  opacity: 1;
+  visibility: visible;
+}
 /* --- UPDATED: TEXT STEPS --- */
 .step {
   height: 100vh; /* Acts purely as an invisible scroll area now */
@@ -300,7 +354,7 @@ main.d3-scrollytelling {
 
 .content {
   position: fixed;
-  top: 12vh; /* Locks text to the top center */
+  top: 16vh; /* Changed from 12vh */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -324,86 +378,22 @@ main.d3-scrollytelling {
 .content h1,
 .content h2 {
   font-size: 2rem;
-  font-family: "Source Sans Pro", sans-serif; /* Changed to Source Sans Pro */
-  font-weight: 700; /* Forced bold weight */
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
   color: #1a1a1a;
   margin-top: 0;
+  margin-bottom: 5px; /* ADD THIS: Pulls the paragraph closer */
 }
 
 .content p {
   color: #4a4a4a;
   font-size: 1.1rem;
   line-height: 1.6;
+  margin-top: 0; /* ADD THIS: Removes default top spacing */
 }
 
 .spacer {
   height: 50vh;
-}
-
-/* --- UPDATED: D3 LEGEND STYLING --- */
-/* (Keep your #d3-legend style the same, just adjust right/top if needed) */
-
-/* ADD THIS: AGE GUIDE STYLING */
-#d3-legend,
-#d3-age-legend {
-  position: fixed;
-  top: 5vh;
-  right: 5vw;
-  z-index: 20;
-  opacity: 0; /* Hidden by default at top of page */
-  visibility: hidden;
-  transition: opacity 0.5s ease;
-}
-
-#d3-age-legend {
-  width: 250px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 4px;
-}
-
-/* MASTER VISIBILITY SWITCH: 
-  Legends ONLY appear if GSAP adds "show-legends" to the body, 
-  AND the JS has marked them as the "active-legend".
-*/
-body.show-legends #d3-legend.active-legend,
-body.show-legends #d3-age-legend.active-legend {
-  opacity: 1;
-  visibility: visible;
-}
-
-.age-guide-title {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  color: #4a4a4a;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-.age-gradient-bar {
-  height: 15px;
-  border-radius: 4px;
-  /* CSS Gradient mirroring the colors in your provided image */
-  background: linear-gradient(
-    to right,
-    #1e6b3c 0%,
-    /* 6 years */ #4cb050 9%,
-    /* 12 years */ #ffeb3b 18%,
-    /* 18 years */ #ff9800 36%,
-    /* 30 years */ #f44336 58%,
-    /* 45 years */ #b71c1c 80%,
-    /* 60 years */ #880e4f 100% /* 68 years */
-  );
-}
-
-.age-labels {
-  display: flex;
-  justify-content: space-between;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  color: #1a1a1a;
-  margin-top: 4px;
-  font-weight: 500;
 }
 
 /* --- AI2HTML: Annual --- */

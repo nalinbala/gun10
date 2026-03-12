@@ -905,17 +905,35 @@ function applyMonthForces() {
 }
 
 /* ========================================= */
-/* HIDE LEGENDS IN STATIC SECTION            */
+/* STRICT LEGEND SWAPPER                     */
 /* ========================================= */
-ScrollTrigger.create({
-  trigger: ".static-analysis-section",
-  start: "top center", // Triggers when the top of the static section hits the middle of the screen
-  onEnter: () => {
-    // Fades the legends out when scrolling down into the static section
-    document.body.classList.remove("show-legends");
-  },
-  onLeaveBack: () => {
-    // Fades the legends back in if the user scrolls back up to the D3 animations
-    document.body.classList.add("show-legends");
-  },
+
+// 1. Force the correct default state when the page first loads
+document.getElementById("d3-legend").classList.add("active-legend");
+document.getElementById("d3-age-legend").classList.remove("active-legend");
+
+// 2. Check every single step as the user scrolls
+gsap.utils.toArray(".step").forEach((step) => {
+  ScrollTrigger.create({
+    trigger: step,
+    start: "top center", // Triggers when the text hits the middle
+    onEnter: () => toggleLegends(step),
+    onEnterBack: () => toggleLegends(step), // Handles scrolling upwards
+  });
 });
+
+// 3. The logic: Only show Age legend if on the Age step!
+function toggleLegends(step) {
+  // Check if the current step is the Age section
+  if (
+    step.id === "age-step" ||
+    step.getAttribute("data-state") === "state_age"
+  ) {
+    document.getElementById("d3-legend").classList.remove("active-legend");
+    document.getElementById("d3-age-legend").classList.add("active-legend");
+  } else {
+    // For every other section (Total, Gender, Motives, etc.), show Male/Female
+    document.getElementById("d3-age-legend").classList.remove("active-legend");
+    document.getElementById("d3-legend").classList.add("active-legend");
+  }
+}
