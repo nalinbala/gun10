@@ -884,12 +884,37 @@ div[id^="g-"] {
   overflow: visible !important;
 }
 
-/* Shrink the massive desktop text to fit phone screens */
-.names-text {
-  font-size: 26px;
-  padding: 0 15px;
-}
+/* ========================================= */
+/* MOBILE RESPONSIVENESS MASTER BLOCK        */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* 1. Bypass the complex D3 animations on mobile */
+  #visual-stage,
+  main.d3-scrollytelling,
+  #d3-legend,
+  #d3-age-legend {
+    display: none !important;
+  }
 
-.title-main {
-  font-size: 45px; /* Ensures the main title also fits safely */
+  /* 2. Reduce the massive gap between the intro and static section */
+  .bridge-section {
+    padding-bottom: 10vh;
+  }
+
+  /* 3. Shrink the massive desktop text to fit phone screens */
+  .names-text {
+    font-size: 26px;
+    padding: 0 15px;
+  }
+
+  .title-main {
+    font-size: 45px;
+  }
+
+  /* 4. Make the bridge paragraph elegant on mobile */
+  .bridge-paragraph {
+    font-size: 20px;
+    line-height: 1.5;
+    padding: 0 25px;
+  }
 }
